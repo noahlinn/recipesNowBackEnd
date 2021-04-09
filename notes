@@ -1,0 +1,3 @@
+sequelize model:generate --name=user --attributes name:text,email:text,password:text,diet:text
+sequelize model:generate --name=user_recipe --attributes userId:integer,recipeId:integer
+sequelize model:generate --name=recipe --attributes recipeId:text
