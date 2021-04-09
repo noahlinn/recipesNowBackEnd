@@ -11,12 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.user.belongsToMany(models.recipe,{through:'user_recipe'})
+      models.user.belongsToMany(models.recipe, { through: 'user_recipe' })
     }
   };
   user.init({
     name: DataTypes.TEXT,
-    email: DataTypes.TEXT,
+    email: {
+      type: DataTypes.TEXT,
+    validate: {
+        isEmail: true
+      }
+    },
     password: DataTypes.TEXT,
     diet: DataTypes.TEXT
   }, {
