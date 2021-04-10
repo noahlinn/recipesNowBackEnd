@@ -37,4 +37,41 @@ userController.login = async (req, res) => {
     }
 }
 
+userController.saveRecipe = async (req, res) => {
+    try {
+        let [recipe, create] = await models.recipe.findOrCreate({
+            where: {
+                recipeId: req.params.recipeId
+            }
+        })
+        console.log(recipe)
+        
+        let user = await models.user.findOne({
+            where:{
+                id: req.params.userId
+            }
+        })
+        console.log(user)
+        await user.addRecipe(recipe)
+        res.send({recipe,user})
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+userController.getSavedRecipes = async (req, res) => {
+    try {
+        let user = await models.user.findOne({
+            where:{
+                id: req.params.userId
+            }
+        })
+       let recipes = await user.getRecipes()
+        res.json(recipes)
+        
+    } catch (error) {
+        
+    }
+}
+
 module.exports = userController
