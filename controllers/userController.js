@@ -70,8 +70,28 @@ userController.getSavedRecipes = async (req, res) => {
         res.json(recipes)
         
     } catch (error) {
-        
+        res.send(error)
     }
 }
+
+userController.deleteSavedRecipe = async (req, res) => {
+    try {
+        let recipe = await models.recipe.findOne({
+            where: {
+                recipeId: req.params.recipeId
+            }
+        })
+        let user = await models.user.findOne({
+            where:{
+                id: req.params.userId
+            }
+        })
+        await user.removeRecipe(recipe)
+        res.json('success')
+    } catch (error) {
+        res.send(error)
+    }
+}
+
 
 module.exports = userController
