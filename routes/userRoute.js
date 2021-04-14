@@ -8,5 +8,6 @@ userRoute.delete('/:userId/delete/:recipeId', userController.deleteSavedRecipe)
 userRoute.post('/:userId/save/:recipeId', userController.saveRecipe)
 
 userRoute.get('/:userId/savedRecipes', userController.getSavedRecipes)
+userRoute.put('/:userId', userController.updateDiet)
 
 module.exports = userRoute

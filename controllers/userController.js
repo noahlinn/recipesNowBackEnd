@@ -67,6 +67,7 @@ userController.getSavedRecipes = async (req, res) => {
             }
         })
        let recipes = await user.getRecipes()
+       
         res.json(recipes)
         
     } catch (error) {
@@ -87,7 +88,22 @@ userController.deleteSavedRecipe = async (req, res) => {
             }
         })
         await user.removeRecipe(recipe)
-        res.json('success')
+        res.json('succes')
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+userController.updateDiet = async (req, res) => {
+    try {
+        let user = await models.user.findOne({
+            where:{
+                id: req.params.userId
+            }
+        })
+        let update = await user.update(req.body)
+        console.log(user)
+        res.json({user, update})
     } catch (error) {
         res.send(error)
     }
